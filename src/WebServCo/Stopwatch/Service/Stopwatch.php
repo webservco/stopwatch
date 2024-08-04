@@ -9,7 +9,7 @@ use WebServCo\Stopwatch\Contract\StopwatchInterface;
 use function hrtime;
 use function is_int;
 
-final class Stopwatch implements StopwatchInterface
+final class Stopwatch extends AbstractService implements StopwatchInterface
 {
     private int $timeStart = 0;
     private int $timeStop = 0;

@@ -9,8 +9,9 @@ use WebServCo\Stopwatch\Contract\LapTimerInterface;
 use WebServCo\Stopwatch\Contract\StopwatchInterface;
 
 use function array_key_exists;
+use function count;
 
-final class LapTimer implements LapTimerInterface
+final class LapTimer extends AbstractService implements LapTimerInterface
 {
     /**
      * Lap storage.
@@ -38,6 +39,24 @@ final class LapTimer implements LapTimerInterface
         }
 
         return $this->laps[$name];
+    }
+
+    /**
+     * @return array<string,array<string,float>|float|int>
+     */
+    public function getStatistics(): array
+    {
+        $laps = $this->getLaps();
+        $data = [
+            'laps' => [],
+            'totalLaps' => count($laps),
+            'totalTime' => $this->toMilliseconds($this->getTotalTime()),
+        ];
+        foreach ($laps as $lapName => $lapTime) {
+            $data['laps'][$lapName] = $this->toMilliseconds($lapTime);
+        }
+
+        return $data;
     }
 
     public function getTotalTime(): int

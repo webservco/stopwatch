@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace WebServCo\Stopwatch\Contract;
 
-interface StopwatchInterface
+interface StopwatchInterface extends ToMillisecondsInterface
 {
     public function getElapsedTime(): int;
 
