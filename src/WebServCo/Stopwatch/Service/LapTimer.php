@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace WebServCo\Stopwatch\Service;
 
 use OutOfBoundsException;
+use Override;
 use WebServCo\Stopwatch\Contract\LapTimerInterface;
 use WebServCo\Stopwatch\Contract\StopwatchInterface;
 
@@ -27,11 +28,13 @@ final class LapTimer extends AbstractService implements LapTimerInterface
     /**
      * @return array<string,int>
      */
+    #[Override]
     public function getLaps(): array
     {
         return $this->laps;
     }
 
+    #[Override]
     public function getLapTime(string $name): int
     {
         if (!array_key_exists($name, $this->laps)) {
@@ -44,6 +47,7 @@ final class LapTimer extends AbstractService implements LapTimerInterface
     /**
      * @return array<string,array<string,float>|float|int>
      */
+    #[Override]
     public function getStatistics(): array
     {
         $laps = $this->getLaps();
@@ -59,11 +63,13 @@ final class LapTimer extends AbstractService implements LapTimerInterface
         return $data;
     }
 
+    #[Override]
     public function getTotalTime(): int
     {
         return $this->stopwatch->getTotalTime();
     }
 
+    #[Override]
     public function lap(string $name): bool
     {
         $this->stopwatch->stop();
@@ -73,6 +79,7 @@ final class LapTimer extends AbstractService implements LapTimerInterface
         return $this->start();
     }
 
+    #[Override]
     public function start(?int $timeStart = null): bool
     {
         return $this->stopwatch->start($timeStart);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace WebServCo\Stopwatch\Service;
 
+use Override;
 use WebServCo\Stopwatch\Contract\StopwatchInterface;
 
 use function hrtime;
@@ -16,16 +17,19 @@ final class Stopwatch extends AbstractService implements StopwatchInterface
     private int $elapsedTime = 0;
     private int $totalTime = 0;
 
+    #[Override]
     public function getElapsedTime(): int
     {
         return $this->elapsedTime;
     }
 
+    #[Override]
     public function getTotalTime(): int
     {
         return $this->totalTime;
     }
 
+    #[Override]
     public function start(?int $timeStart = null): bool
     {
         $this->timeStart = is_int($timeStart)
@@ -35,6 +39,7 @@ final class Stopwatch extends AbstractService implements StopwatchInterface
         return $this->clearElapsedTime();
     }
 
+    #[Override]
     public function stop(): bool
     {
         $this->timeStop = (int) hrtime(true);
